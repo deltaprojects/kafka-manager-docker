@@ -10,6 +10,8 @@ RUN echo "Building Kafka Manager" \
   && git clone -b ${KAFKA_MANAGER_VERSION} https://github.com/yahoo/kafka-manager \
   && cd /tmp/kafka-manager \
   && ./sbt clean dist \
+  || ./sbt clean dist \
+  || ./sbt clean dist \
   && unzip -d /tmp target/universal/kafka-manager-${KAFKA_MANAGER_VERSION}.zip
 
 ### STAGE 2: Package ###
