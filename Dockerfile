@@ -1,7 +1,7 @@
 ### STAGE 1: Build ###
 FROM openjdk:8-jdk-alpine AS build
 
-ENV KAFKA_MANAGER_VERSION=1.3.3.22
+ENV KAFKA_MANAGER_VERSION=2.0.0.2
 
 RUN echo "Building Kafka Manager" \
   && apk add --no-cache git bash \
@@ -18,7 +18,7 @@ RUN echo "Building Kafka Manager" \
 FROM openjdk:8-jre-alpine
 MAINTAINER Delta Projects
 
-ENV KAFKA_MANAGER_VERSION=1.3.3.22
+ENV KAFKA_MANAGER_VERSION=2.0.0.2
 ENV ZK_HOSTS=localhost:2181
 ENV KAFKA_MANAGER_AUTH_ENABLED=true
 ENV KAFKA_MANAGER_USERNAME=admin
