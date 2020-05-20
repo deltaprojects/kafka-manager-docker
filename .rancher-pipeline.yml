@@ -1,0 +1,18 @@
+stages:
+- name: Build & Publish
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: deltaprojects/kafka-manager:${CICD_GIT_TAG}
+  when:
+    event:
+      include:
+      - tag
+- name: Deploy
+  steps:
+  - applyYamlConfig:
+      path: ./deployment.yaml
+timeout: 60
+branch: {}
+notification: {}
