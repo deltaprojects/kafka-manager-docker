@@ -1,7 +1,7 @@
 # kafka manager docker container
-This docker container runs [kafka manager](https://github.com/yahoo/kafka-manager), a UI for [Apache Kafka](http://kafka.apache.org).
+This docker container runs [CMAK](https://github.com/yahoo/CMAK)(formerly Kafka Manager), a UI for [Apache Kafka](http://kafka.apache.org).
 
-The base image used is [openjdk:8-jre-alpine](https://hub.docker.com/_/openjdk/). Meaning it runs alpine and openjdk JRE v8.
+The base image used is [azul/zulu-openjdk-alpine:11](https://hub.docker.com/r/azul/zulu-openjdk-alpine). Meaning it runs alpine and openjdk JDK v11.
 
 ### Environment variables
 Here are the available environment variables.
@@ -18,7 +18,7 @@ KAFKA_MANAGER_LDAP_PORT=389
 KAFKA_MANAGER_LDAP_USERNAME=""
 KAFKA_MANAGER_LDAP_PASSWORD=""
 KAFKA_MANAGER_LDAP_SEARCH_BASE_DN=""
-KAFKA_MANAGER_LDAP_SEARCH_FILTER="(uid=$capturedLogin$)"
+KAFKA_MANAGER_LDAP_SEARCH_FILTER='(uid=$capturedLogin$)'
 KAFKA_MANAGER_LDAP_CONNECTION_POOL_SIZE=10
 KAFKA_MANAGER_LDAP_SSL=false
 KAFKA_MANAGER_EXTRA_PLAY_OPTS=""
@@ -60,13 +60,13 @@ docker run \
 	--env="KAFKA_MANAGER_LDAP_SEARCH_FILTER=(&(objectClass=inetOrgPerson)(&(uid=\$capturedLogin\$)(|(memberof=cn=Operations,ou=Groups,dc=example,dc=com)(memberof=cn=Development,ou=Groups,dc=example,dc=com))))" \
 	--env="KAFKA_MANAGER_LDAP_CONNECTION_POOL_SIZE=10" \
 	--env="KAFKA_MANAGER_LDAP_SSL=true" \
+	--env="KAFKA_MANAGER_EXTRA_PLAY_OPTS=-Dhttp.port=9000 -Dhttps.port=9443" \
 	--network=bridge \
 	-p 0.0.0.0:443:9443 \
 	-p 0.0.0.0:80:9000 \
 	--restart=always \
 	--detach=true \
-	deltaprojects/kafka-manager:latest \
-	'/opt/kafka-manager/bin/kafka-manager -Dconfig.file=/opt/kafka-manager/conf/application.conf -Dhttp.port=9000 -Dhttps.port=9443'
+	deltaprojects/kafka-manager:latest
 ```
 
 

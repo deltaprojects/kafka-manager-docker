@@ -1,24 +1,24 @@
 ### STAGE 1: Build ###
-FROM openjdk:8-jdk-alpine AS build
+FROM azul/zulu-openjdk-alpine:11 AS build
 
-ENV KAFKA_MANAGER_VERSION=2.0.0.2
+ENV KAFKA_MANAGER_VERSION=3.0.0.4
 
-RUN echo "Building Kafka Manager" \
+RUN echo "Building Kafka Manager/CMAK" \
   && apk add --no-cache git bash \
   && mkdir -p /tmp \
   && cd /tmp \
-  && git clone -b ${KAFKA_MANAGER_VERSION} https://github.com/yahoo/kafka-manager \
-  && cd /tmp/kafka-manager \
+  && git clone -b ${KAFKA_MANAGER_VERSION} https://github.com/yahoo/CMAK \
+  && cd /tmp/CMAK \
   && ./sbt clean dist \
   || ./sbt clean dist \
   || ./sbt clean dist \
-  && unzip -d /tmp target/universal/kafka-manager-${KAFKA_MANAGER_VERSION}.zip
+  && unzip -d /tmp target/universal/cmak-${KAFKA_MANAGER_VERSION}.zip
 
 ### STAGE 2: Package ###
-FROM openjdk:8-jre-alpine
+FROM azul/zulu-openjdk-alpine:11
 MAINTAINER Delta Projects
 
-ENV KAFKA_MANAGER_VERSION=2.0.0.2
+ENV KAFKA_MANAGER_VERSION=3.0.0.4
 ENV ZK_HOSTS=localhost:2181
 ENV KAFKA_MANAGER_AUTH_ENABLED=true
 ENV KAFKA_MANAGER_USERNAME=admin
@@ -38,16 +38,17 @@ ENV KAFKA_MANAGER_EXTRA_PLAY_OPTS=""
 
 ENV JAVA_OPTS=""
 
-COPY --from=build /tmp/kafka-manager-${KAFKA_MANAGER_VERSION} /opt/kafka-manager
-COPY logback.xml /opt/kafka-manager/conf
+COPY --from=build /tmp/cmak-${KAFKA_MANAGER_VERSION} /opt/cmak
+COPY logback.xml /opt/cmak/conf
 
 RUN apk add --no-cache git bash
+RUN find /opt/cmak
 
 EXPOSE 9000
 EXPOSE 9443
 
-WORKDIR /opt/kafka-manager
-#ENV application.home=/opt/kafka-manager
+WORKDIR /opt/cmak
+#ENV application.home=/opt/cmak
 
 ENTRYPOINT ["/bin/bash","-c"]
-CMD ["/opt/kafka-manager/bin/kafka-manager -Dconfig.file=/opt/kafka-manager/conf/application.conf ${KAFKA_MANAGER_EXTRA_PLAY_OPTS}"]
+CMD ["/opt/cmak/bin/cmak -Dconfig.file=/opt/cmak/conf/application.conf ${KAFKA_MANAGER_EXTRA_PLAY_OPTS}"]
