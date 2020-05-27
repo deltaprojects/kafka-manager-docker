@@ -5,6 +5,8 @@ stages:
       dockerfilePath: ./Dockerfile
       buildContext: .
       tag: deltaprojects/kafka-manager:${CICD_GIT_TAG}
+      env:
+        PLUGIN_MTU: 1450
   when:
     event:
       include:
