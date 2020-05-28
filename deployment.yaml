@@ -24,18 +24,18 @@ metadata:
   namespace: kafka-manager
 type: Opaque
 stringData:
-  ZK_HOSTS: zk01.se-ix.delta.prod:2181,zk02.se-ix.delta.prod:2181,zk03.se-ix.delta.prod:2181
-  KAFKA_MANAGER_AUTH_ENABLED: true
-  KAFKA_MANAGER_USERNAME: admin
-  KAFKA_MANAGER_LDAP_ENABLED: true
-  KAFKA_MANAGER_LDAP_SERVER: infra01.deltaprojects.com
-  KAFKA_MANAGER_LDAP_PORT: 636
-  KAFKA_MANAGER_LDAP_USERNAME: cn=readonly,dc=deltaprojects,dc=com
-  KAFKA_MANAGER_LDAP_SEARCH_BASE_DN: ou=Employees,dc=deltaprojects,dc=com
-  KAFKA_MANAGER_LDAP_SEARCH_FILTER: (&(objectClass=inetOrgPerson)(&(uid=\$capturedLogin\$)(|(memberof=cn=IT,ou=Groups,dc=deltaprojects,dc=com)(memberof=cn=Development,ou=Groups,dc=deltaprojects,dc=com))))
-  KAFKA_MANAGER_LDAP_CONNECTION_POOL_SIZE: 10
-  KAFKA_MANAGER_LDAP_SSL: true
-  KAFKA_MANAGER_EXTRA_PLAY_OPTS: -Dhttp.port=9000 -Dhttps.port=9443
+  ZK_HOSTS: 'zk01.se-ix.delta.prod:2181,zk02.se-ix.delta.prod:2181,zk03.se-ix.delta.prod:2181'
+  KAFKA_MANAGER_AUTH_ENABLED: 'true'
+  KAFKA_MANAGER_USERNAME: 'admin'
+  KAFKA_MANAGER_LDAP_ENABLED: 'true'
+  KAFKA_MANAGER_LDAP_SERVER: 'infra01.deltaprojects.com'
+  KAFKA_MANAGER_LDAP_PORT: '636'
+  KAFKA_MANAGER_LDAP_USERNAME: 'cn=readonly,dc=deltaprojects,dc=com'
+  KAFKA_MANAGER_LDAP_SEARCH_BASE_DN: 'ou=Employees,dc=deltaprojects,dc=com'
+  KAFKA_MANAGER_LDAP_SEARCH_FILTER: '(&(objectClass=inetOrgPerson)(&(uid=\$capturedLogin\$)(|(memberof=cn=IT,ou=Groups,dc=deltaprojects,dc=com)(memberof=cn=Development,ou=Groups,dc=deltaprojects,dc=com))))'
+  KAFKA_MANAGER_LDAP_CONNECTION_POOL_SIZE: '10'
+  KAFKA_MANAGER_LDAP_SSL: 'true'
+  KAFKA_MANAGER_EXTRA_PLAY_OPTS: '-Dhttp.port=9000 -Dhttps.port=9443'
 ---
 # commented/masked as a side effect of not storing passwords in this file.
 # apiVersion: v1
