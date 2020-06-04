@@ -73,6 +73,23 @@ docker run \
 ### Quirks
 - Changing APPLICATION_SECRET requires you to remove /kafka-manager znode from zookeeeper and reconfigure kafka-manager.
 
+### Deploy @ Delta Projects
+Commit and push your changes to master.
+Add a release tag like this (vX.X.X.X-Y, X=CMAK version, Y=deployment/docker iteration):
+
+```
+$ git tag
+...
+v3.0.0.4-2
+v3.0.0.4-3
+v3.0.0.4-4
+v3.0.0.4-5
+$ git tag v3.0.0.4-6
+$ git push --tags
+```
+
+And it will automatically build and deploy in our Rancher Pipeline.
+
 ### Contribute
 * Create issues.
 * Create pull requests.
