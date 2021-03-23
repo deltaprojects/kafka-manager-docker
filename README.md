@@ -88,8 +88,6 @@ $ git tag v3.0.0.4-6
 $ git push --tags
 ```
 
-And it will automatically build and deploy in our Rancher Pipeline.
-
 ### Contribute
 * Create issues.
 * Create pull requests.
