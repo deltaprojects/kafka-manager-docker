@@ -1,9 +1,11 @@
-# kafka manager docker container
+# kafka manager / CMAK docker container
+
 This docker container runs [CMAK](https://github.com/yahoo/CMAK)(formerly Kafka Manager), a UI for [Apache Kafka](http://kafka.apache.org).
 
 The base image used is [azul/zulu-openjdk-alpine:11](https://hub.docker.com/r/azul/zulu-openjdk-alpine). Meaning it runs alpine and openjdk JDK v11.
 
 ### Environment variables
+
 Here are the available environment variables.
 I think the list is self-explanatory.
 
@@ -23,30 +25,32 @@ KAFKA_MANAGER_LDAP_CONNECTION_POOL_SIZE=10
 KAFKA_MANAGER_LDAP_SSL=false
 KAFKA_MANAGER_EXTRA_PLAY_OPTS=""
 
-
 APPLICATION_SECRET="RANDOMCHARACTERS" # uses default value from from kafka manager if not set.
 JAVA_OPTS="-Djava.net.preferIPv4Stack=true -Xmx2G ..." # default is no JAVA_OPTS
 ```
 
 
 ### Quick Start
-```
+
+```bash
 docker run -d --name kafka-manager -p 9000:9000 -e ZK_HOSTS="zk01.local:2181" -e KAFKA_MANAGER_USERNAME=admin -e KAFKA_MANAGER_PASSWORD=password deltaprojects/kafka-manager
 ```
 
-### Pass arguments to kafka-manager
+### Pass arguments to CMAK
+
 Use the `JAVA_OPTS` environment variable to pass attributes/options to the jvm or kafka manager.
 
 Example:
 
-```
-docker run -d --name kafka-manager -p 9000:9000 -e ZK_HOSTS="zk01.local:2181" -e APPLICATION_SECRET="€/DDFsdfa.," -e JAVA_OPTS="-Djava.net.preferIPv4Stack=true -Dlogger.file=/mnt/logger.xml -Xmx2G" deltaprojects/kafka-manager
+```bash
+docker run -d --name cmak -p 9000:9000 -e ZK_HOSTS="zk01.local:2181" -e APPLICATION_SECRET="€/DDFsdfa.," -e JAVA_OPTS="-Djava.net.preferIPv4Stack=true -Dlogger.file=/mnt/logger.xml -Xmx2G" deltaprojects/kafka-manager
 ```
 
 LDAP + SSL example:
-```
+
+```bash
 docker run \
-	--name=kafka-manager \
+	--name=cmak \
 	--env="ZK_HOSTS=zk01.example.com:2181,zk02.example.com:2181,zk03.example.com:2181" \
 	--env="KAFKA_MANAGER_AUTH_ENABLED=true" \
 	--env="KAFKA_MANAGER_USERNAME=admin" \
@@ -69,15 +73,16 @@ docker run \
 	deltaprojects/kafka-manager:latest
 ```
 
-
 ### Quirks
-- Changing APPLICATION_SECRET requires you to remove /kafka-manager znode from zookeeeper and reconfigure kafka-manager.
+
+- Changing APPLICATION_SECRET requires you to remove /kafka-manager znode from zookeeeper and reconfigure CMAK.
 
 ### Deploy @ Delta Projects
+
 Commit and push your changes to master.
 Add a release tag like this (vX.X.X.X-Y, X=CMAK version, Y=deployment/docker iteration):
 
-```
+```bash
 $ git tag
 ...
 v3.0.0.4-2
@@ -89,5 +94,6 @@ $ git push --tags
 ```
 
 ### Contribute
-* Create issues.
-* Create pull requests.
+
+- Create issues.
+- Create pull requests.
