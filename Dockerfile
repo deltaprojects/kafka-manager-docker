@@ -16,7 +16,7 @@ RUN echo "Building Kafka Manager/CMAK" \
 
 ### STAGE 2: Package ###
 FROM azul/zulu-openjdk-alpine:11
-MAINTAINER Delta Projects
+LABEL maintainer="Delta Projects"
 
 ENV KAFKA_MANAGER_VERSION=3.0.0.5
 ENV ZK_HOSTS=localhost:2181
