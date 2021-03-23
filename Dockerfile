@@ -1,7 +1,7 @@
 ### STAGE 1: Build ###
 FROM azul/zulu-openjdk-alpine:11 AS build
 
-ENV KAFKA_MANAGER_VERSION=3.0.0.4
+ENV KAFKA_MANAGER_VERSION=3.0.0.5
 
 RUN echo "Building Kafka Manager/CMAK" \
   && apk add --no-cache git bash \
@@ -18,7 +18,7 @@ RUN echo "Building Kafka Manager/CMAK" \
 FROM azul/zulu-openjdk-alpine:11
 MAINTAINER Delta Projects
 
-ENV KAFKA_MANAGER_VERSION=3.0.0.4
+ENV KAFKA_MANAGER_VERSION=3.0.0.5
 ENV ZK_HOSTS=localhost:2181
 ENV KAFKA_MANAGER_AUTH_ENABLED=true
 ENV KAFKA_MANAGER_USERNAME=admin
